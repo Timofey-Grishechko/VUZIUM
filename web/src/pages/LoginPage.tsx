@@ -1,16 +1,20 @@
-import { Container, Typography, Box } from '@mui/material'
+import { Box } from '@mui/material'
+import LoginCard from '../features/auth/components/LoginCard'
 
 export default function LoginPage() {
   return (
-    <Container maxWidth="sm">
-      <Box sx={{ py: 8, textAlign: 'center' }}>
-        <Typography variant="h4" gutterBottom>
-          Вход в систему
-        </Typography>
-        <Typography color="text.secondary">
-          Здесь будет кнопка входа через Keycloak
-        </Typography>
-      </Box>
-    </Container>
+    <Box
+      sx={{
+        minHeight: '100vh',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center',
+        p: 2,
+        background: (theme) =>
+          `linear-gradient(135deg, ${theme.palette.primary.light}22 0%, ${theme.palette.primary.main}33 100%)`,
+      }}
+    >
+      <LoginCard />
+    </Box>
   )
 }
