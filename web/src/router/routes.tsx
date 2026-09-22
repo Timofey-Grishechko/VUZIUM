@@ -6,7 +6,7 @@ import DashboardPage from '../pages/DashboardPage.tsx'
 import LoginPage from '../pages/LoginPage.tsx'
 import NotFoundPage from '../pages/NotFoundPage.tsx'
 
-import { ProtectedRoute, RoleGuard } from './guards'
+import { ProtectedRoute } from './guards'
 
 export const routes: RouteObject[] = [
   {
