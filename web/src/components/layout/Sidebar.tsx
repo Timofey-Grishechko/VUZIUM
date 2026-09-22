@@ -18,10 +18,9 @@ import AccountTreeIcon from '@mui/icons-material/AccountTree'
 import AssessmentIcon from '@mui/icons-material/Assessment'
 import UploadFileIcon from '@mui/icons-material/UploadFile'
 import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
-import HelpOutlineIcon from '@mui/icons-material/HelpOutline'
+import HelpOutlineIcon from '@mui/icons-material/HelpOutlined'
 
 import { NavLink, useLocation } from 'react-router-dom'
-import { useUIStore } from '../../store/uiStore'
 import { useUserStore } from '../../store/userStore'
 
 const DRAWER_WIDTH = 260
@@ -45,7 +44,6 @@ const footerItems = [
 ]
 
 export default function Sidebar() {
-  const collapsed = useUIStore((s) => s.sidebarCollapsed)
   const hasRole = useUserStore((s) => s.hasRole)
   const location = useLocation()
 
@@ -69,7 +67,7 @@ export default function Sidebar() {
     >
       <Toolbar sx={{ px: 2 }}>
         <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.main' }}>
-          ИТ Школа РТК
+          VUZIUM
         </Typography>
       </Toolbar>
       <Divider />

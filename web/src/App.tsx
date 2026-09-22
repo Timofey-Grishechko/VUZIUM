@@ -6,7 +6,7 @@ function App() {
       <Box sx={{ py: 6 }}>
         <Stack spacing={2} sx={{ alignItems: 'center', textAlign: 'center' }}>
           <Typography variant="h1" sx={{ color: 'primary.main', fontWeight: 700 }}>
-            ИТ Школа РТК
+            VUZIUM
           </Typography>
           <Typography variant="h5" color="text.secondary">
             Система контроля и обработки статистических данных
