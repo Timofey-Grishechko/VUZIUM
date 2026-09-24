@@ -2,12 +2,30 @@
 
 Фронтенд системы контроля и обработки статистических данных по обучению студентов ВУЗов и школ по ИТ-направлениям.
 
-Заказчик: ИТ Школа РТК.
+**Заказчик:** ИТ Школа РТК
+**Продукт:** VUZIUM
 
 ## Стек
-React 19 + TypeScript + Vite + MUI + Zustand + TanStack Query + React Router
+
+- **React 19** + **TypeScript**
+- **Vite 8** — сборка и dev-сервер
+- **React Router 7** — маршрутизация
+- **Zustand** — управление состоянием
+- **TanStack Query** — кэш и работа с API
+- **MUI 9** — UI-компоненты
+- **Axios** — HTTP-клиент
+- **React Hook Form + Zod** — формы и валидация
+- **keycloak-js** — авторизация (мок-провайдер под замену)
+- **@dnd-kit** — drag&drop в канбане workflow
+- **Recharts** — графики и диаграммы
+- **xlsx** — импорт Excel
+- **dayjs** — работа с датами
+- **Oxlint** — линтер
 
 ## Запуск
+
+### Локально
+
 ```bash
 npm install
 npm run dev
