@@ -1,6 +1,6 @@
 import { Box, Typography, CircularProgress, Alert } from '@mui/material'
 import StatsCards from '../features/dashboard/components/StatsCards'
-import DashboardCharts from '../features/dashboard/components/DashBoardCharts'
+import DashboardCharts from '../features/dashboard/components/DashboardCharts'
 import { useDashboardStats } from '../features/dashboard/hooks/useDashboardStats'
 
 export default function DashboardPage() {

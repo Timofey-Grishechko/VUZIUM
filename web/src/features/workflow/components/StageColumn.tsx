@@ -2,7 +2,7 @@ import { Paper, Typography, Box } from '@mui/material'
 import { useDroppable } from '@dnd-kit/core'
 import type { WorkflowExtended, StageKey } from '../../../types/domain'
 import { STAGE_LABELS } from '../../../types/domain'
-import WorkflowCard from './Workflowcard'
+import WorkflowCard from './WorkflowCard'
 
 interface Props {
   stageKey: StageKey

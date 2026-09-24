@@ -42,9 +42,9 @@ export default function WorkflowCard({ workflow, onClick }: Props) {
       >
         {workflow.universityName}
       </Typography>
-        <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
+      <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
         {workflow.productName}
-        </Typography>
+      </Typography>
       <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
         <Chip
           label={workflow.directionName}

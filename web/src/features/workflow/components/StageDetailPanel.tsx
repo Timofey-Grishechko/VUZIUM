@@ -30,7 +30,7 @@ interface Props {
   onTransition: (stageId: string, newStatus: StageStatus) => void
 }
 
-export default function StageDetailPanel({ workflowId, stage, onTransition }: Props) {
+export default function StageDetailPanel({ workflowId: _workflowId, stage, onTransition }: Props) {
   const queryClient = useQueryClient()
   const [comment, setComment] = useState('')
   const [file, setFile] = useState<File | null>(null)
