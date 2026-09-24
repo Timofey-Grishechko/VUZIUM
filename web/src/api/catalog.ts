@@ -1,5 +1,11 @@
 import type { PaginatedResponse, PaginationParams } from '../types/api'
-import type { University } from '../types/domain'
+import type {
+  ITDirection,
+  ITProduct,
+  Responsible,
+  University,
+  Vendor,
+} from '../types/domain'
 
 // === Мок-данные (потом заменим на apiClient.get('/universities')) ===
 const MOCK_UNIVERSITIES: University[] = [
@@ -15,6 +21,43 @@ const MOCK_UNIVERSITIES: University[] = [
   { id: '10', name: 'ДВФУ', region: 'Владивосток', status: 'inactive', managerId: '2', responsibleFromVuz: 'Егоров Е.Е.' },
   { id: '11', name: 'СФУ', region: 'Красноярск', status: 'active', managerId: '3', responsibleFromVuz: 'Павлов П.П.' },
   { id: '12', name: 'ЮФУ', region: 'Ростов-на-Дону', status: 'active', managerId: '2', responsibleFromVuz: 'Соколов С.С.' },
+]
+
+const MOCK_DIRECTIONS: ITDirection[] = [
+  { id: '1', name: 'DevOps' },
+  { id: '2', name: 'QA' },
+  { id: '3', name: 'Backend' },
+  { id: '4', name: 'Frontend' },
+  { id: '5', name: 'Data Science' },
+  { id: '6', name: 'Mobile' },
+  { id: '7', name: 'Information Security' },
+]
+
+const MOCK_VENDORS: Vendor[] = [
+  { id: '1', name: 'Яндекс' },
+  { id: '2', name: 'Сбер' },
+  { id: '3', name: 'VK' },
+  { id: '4', name: '1С' },
+  { id: '5', name: 'Ростелеком' },
+  { id: '6', name: 'Лаборатория Касперского' },
+]
+
+const MOCK_PRODUCTS: ITProduct[] = [
+  { id: '1', vendorId: '1', directionId: '3', name: 'Яндекс Практикум Backend', description: 'Курс по backend-разработке' },
+  { id: '2', vendorId: '1', directionId: '4', name: 'Яндекс Практикум Frontend' },
+  { id: '3', vendorId: '2', directionId: '5', name: 'Сбер DS Academy' },
+  { id: '4', vendorId: '3', directionId: '6', name: 'VK Mobile Bootcamp' },
+  { id: '5', vendorId: '4', directionId: '3', name: '1С Разработчик' },
+  { id: '6', vendorId: '5', directionId: '1', name: 'RTK DevOps Platform' },
+  { id: '7', vendorId: '6', directionId: '7', name: 'Kaspersky Security' },
+]
+
+const MOCK_RESPONSIBLES: Responsible[] = [
+  { id: '1', universityId: '1', fio: 'Иванов И.И.', email: 'ivanov@msu.ru', side: 'vuz' },
+  { id: '2', universityId: '2', fio: 'Петров П.П.', email: 'petrov@spbu.ru', side: 'vuz' },
+  { id: '3', universityId: '3', fio: 'Сидоров С.С.', email: 'sidorov@mipt.ru', side: 'vuz' },
+  { id: '4', universityId: '1', fio: 'Коля Тестов', email: 'kolya@rtk.ru', side: 'school' },
+  { id: '5', universityId: '2', fio: 'Мария РТК', email: 'maria@rtk.ru', side: 'school' },
 ]
 
 export interface UniversityFilters extends PaginationParams {
@@ -56,4 +99,27 @@ export const catalogApi = {
 
     return { items: paged, total, page, pageSize }
   },
+  // === Directions ===
+  async getDirections(): Promise<ITDirection[]> {
+    await new Promise((r) => setTimeout(r, 200))
+    return MOCK_DIRECTIONS
+  },
+
+  // === Vendors ===
+  async getVendors(): Promise<Vendor[]> {
+    await new Promise((r) => setTimeout(r, 200))
+    return MOCK_VENDORS
+  },
+
+  // === Products ===
+  async getProducts(): Promise<ITProduct[]> {
+    await new Promise((r) => setTimeout(r, 200))
+    return MOCK_PRODUCTS
+  },
+
+  // === Responsibles ===
+  async getResponsibles(): Promise<Responsible[]> {
+    await new Promise((r) => setTimeout(r, 200))
+    return MOCK_RESPONSIBLES
+  },  
 }

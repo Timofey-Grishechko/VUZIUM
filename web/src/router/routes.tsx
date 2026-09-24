@@ -6,6 +6,8 @@ import DashboardPage from '../pages/DashboardPage'
 import LoginPage from '../pages/LoginPage'
 import NotFoundPage from '../pages/NotFoundPage'
 import UniversitiesPage from '../pages/UniversitiesPage'
+import DirectionsPage from '../pages/DirectionsPage'
+import VendorsPage from '../pages/VendorsPage'
 
 import { ProtectedRoute } from './guards'
 
@@ -22,6 +24,8 @@ export const routes: RouteObject[] = [
         children: [
           { path: '/', element: <DashboardPage /> },
           { path: '/universities', element: <UniversitiesPage /> },
+          { path: '/directions', element: <DirectionsPage /> },
+          { path: '/vendors', element: <VendorsPage /> },
           // Пример с ограничением по роли:
           // {
           //   element: <RoleGuard roles={['admin']} />,
