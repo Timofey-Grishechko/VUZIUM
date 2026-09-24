@@ -8,6 +8,8 @@ import {
   MenuItem,
   Avatar,
   Chip,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material'
 
 import MenuIcon from '@mui/icons-material/Menu'
@@ -28,7 +30,10 @@ const roleLabels: Record<string, string> = {
 export default function Header() {
   const user = useUserStore((s) => s.user)
   const logout = useUserStore((s) => s.logout)
-  const toggleSidebar = useUIStore((s) => s.toggleSidebar)
+  const openMobile = useUIStore((s) => s.openMobile)
+
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
 
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const open = Boolean(anchorEl)
@@ -44,20 +49,31 @@ export default function Header() {
       color="inherit"
       elevation={0}
       sx={{
-        width: `calc(100% - ${DRAWER_WIDTH}px)`,
-        ml: `${DRAWER_WIDTH}px`,
+        width: isMobile ? '100%' : `calc(100% - ${DRAWER_WIDTH}px)`,
+        ml: isMobile ? 0 : `${DRAWER_WIDTH}px`,
         borderBottom: '1px solid',
         borderColor: 'divider',
       }}
     >
       <Toolbar>
-        <IconButton edge="start" onClick={toggleSidebar} sx={{ mr: 2 }}>
+        <IconButton
+          edge="start"
+          onClick={isMobile ? openMobile : () => {}}
+          sx={{ mr: 2, display: isMobile ? 'inline-flex' : 'none' }}
+        >
           <MenuIcon />
         </IconButton>
 
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 700, color: 'primary.main', display: isMobile ? 'block' : 'none' }}
+        >
+          VUZIUM
+        </Typography>
+
         <Box sx={{ flexGrow: 1 }} />
 
-        {user && (
+        {user && !isMobile && (
           <Chip
             label={roleLabels[user.role] ?? user.role}
             size="small"

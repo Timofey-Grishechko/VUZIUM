@@ -8,6 +8,8 @@ import {
   Divider,
   Box,
   Typography,
+  useMediaQuery,
+  useTheme,
 } from '@mui/material'
 
 import DashboardIcon from '@mui/icons-material/Dashboard'
@@ -21,6 +23,7 @@ import AdminPanelSettingsIcon from '@mui/icons-material/AdminPanelSettings'
 import HelpOutlineIcon from '@mui/icons-material/HelpOutlined'
 
 import { NavLink, useLocation } from 'react-router-dom'
+import { useUIStore } from '../../store/uiStore'
 import { useUserStore } from '../../store/userStore'
 
 const DRAWER_WIDTH = 260
@@ -46,25 +49,21 @@ const footerItems = [
 export default function Sidebar() {
   const hasRole = useUserStore((s) => s.hasRole)
   const location = useLocation()
+  const theme = useTheme()
+  const isMobile = useMediaQuery(theme.breakpoints.down('md'))
+
+  const mobileOpen = useUIStore((s) => s.mobileOpen)
+  const closeMobile = useUIStore((s) => s.closeMobile)
 
   const isActive = (to: string) =>
     to === '/' ? location.pathname === '/' : location.pathname.startsWith(to)
 
-  return (
-    <Drawer
-      variant="permanent"
-      sx={{
-        width: DRAWER_WIDTH,
-        flexShrink: 0,
-        '& .MuiDrawer-paper': {
-          width: DRAWER_WIDTH,
-          boxSizing: 'border-box',
-          borderRight: '1px solid',
-          borderColor: 'divider',
-        },
-      }}
-      open
-    >
+  const handleItemClick = () => {
+    if (isMobile) closeMobile()
+  }
+
+  const drawerContent = (
+    <>
       <Toolbar sx={{ px: 2 }}>
         <Typography variant="h6" sx={{ fontWeight: 700, color: 'primary.main' }}>
           VUZIUM
@@ -80,6 +79,7 @@ export default function Sidebar() {
               component={NavLink}
               to={item.to}
               selected={isActive(item.to)}
+              onClick={handleItemClick}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.label} />
@@ -97,6 +97,7 @@ export default function Sidebar() {
                   component={NavLink}
                   to={item.to}
                   selected={isActive(item.to)}
+                  onClick={handleItemClick}
                 >
                   <ListItemIcon>{item.icon}</ListItemIcon>
                   <ListItemText primary={item.label} />
@@ -114,6 +115,7 @@ export default function Sidebar() {
               component={NavLink}
               to={item.to}
               selected={isActive(item.to)}
+              onClick={handleItemClick}
             >
               <ListItemIcon>{item.icon}</ListItemIcon>
               <ListItemText primary={item.label} />
@@ -121,6 +123,46 @@ export default function Sidebar() {
           ))}
         </List>
       </Box>
+    </>
+  )
+
+  // На мобилке — temporary Drawer (выезжает по бургеру)
+  if (isMobile) {
+    return (
+      <Drawer
+        variant="temporary"
+        open={mobileOpen}
+        onClose={closeMobile}
+        ModalProps={{ keepMounted: true }}
+        sx={{
+          '& .MuiDrawer-paper': {
+            width: DRAWER_WIDTH,
+            boxSizing: 'border-box',
+          },
+        }}
+      >
+        {drawerContent}
+      </Drawer>
+    )
+  }
+
+  // На десктопе — permanent Drawer (всегда слева)
+  return (
+    <Drawer
+      variant="permanent"
+      sx={{
+        width: DRAWER_WIDTH,
+        flexShrink: 0,
+        '& .MuiDrawer-paper': {
+          width: DRAWER_WIDTH,
+          boxSizing: 'border-box',
+          borderRight: '1px solid',
+          borderColor: 'divider',
+        },
+      }}
+      open
+    >
+      {drawerContent}
     </Drawer>
   )
 }
