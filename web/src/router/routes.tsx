@@ -13,10 +13,11 @@ import ResponsiblesPage from '../pages/ResponsiblesPage'
 import WorkflowsPage from '../pages/WorkflowsPage'
 import WorkflowDetailPage from '../pages/WorkflowDetailPage'
 import ReportsPage from '../pages/ReportsPage'
-import HelpPage from '../pages/HelpPage'
 import ImportsPage from '../pages/ImportsPage'
+import HelpPage from '../pages/HelpPage'
+import AdminUsersPage from '../pages/AdminUsersPage'
 
-import { ProtectedRoute } from './guards'
+import { ProtectedRoute, RoleGuard } from './guards'
 
 export const routes: RouteObject[] = [
   {
@@ -32,14 +33,20 @@ export const routes: RouteObject[] = [
           { path: '/', element: <DashboardPage /> },
           { path: '/universities', element: <UniversitiesPage /> },
           { path: '/directions', element: <DirectionsPage /> },
-          { path: '/vendors', element: <VendorsPage /> },
           { path: '/products', element: <ProductsPage /> },
+          { path: '/vendors', element: <VendorsPage /> },
           { path: '/responsibles', element: <ResponsiblesPage /> },
           { path: '/workflows', element: <WorkflowsPage /> },
           { path: '/workflows/:id', element: <WorkflowDetailPage /> },
           { path: '/reports', element: <ReportsPage /> },
-          { path: '/help', element: <HelpPage /> },
           { path: '/imports', element: <ImportsPage /> },
+          { path: '/help', element: <HelpPage /> },
+          {
+            element: <RoleGuard roles={['admin']} />,
+            children: [
+              { path: '/admin/users', element: <AdminUsersPage /> },
+            ],
+          },
         ],
       },
     ],
