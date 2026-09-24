@@ -16,8 +16,8 @@ export default function StageColumn({ stageKey, workflows, onCardClick }: Props)
   return (
     <Box
       sx={{
-        minWidth: 240,
-        width: 240,
+        minWidth: { xs: 200, md: 240 },
+        width: { xs: 200, md: 240 },
         flexShrink: 0,
         display: 'flex',
         flexDirection: 'column',

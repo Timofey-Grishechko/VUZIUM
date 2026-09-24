@@ -17,7 +17,7 @@ export default function VendorsPage() {
 
       <Paper>
         <TableContainer>
-          <Table>
+          <Table sx={{ minWidth: 400 }}>
             <TableHead>
               <TableRow>
                 <TableCell>Название</TableCell>

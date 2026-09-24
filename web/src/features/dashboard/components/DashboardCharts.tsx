@@ -34,17 +34,32 @@ export default function DashboardCharts({
   workflowDynamics,
 }: Props) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ alignItems: 'stretch' }}>
       <Grid size={{ xs: 12, md: 8 }}>
-        <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
-          <CardContent>
+        <Card
+          elevation={0}
+          sx={{
+            height: '100%',
+            border: '1px solid',
+            borderColor: 'divider',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <CardContent
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <Typography variant="h6" gutterBottom>
               Динамика workflow
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               Кумулятивный рост взаимодействий
             </Typography>
-            <Box sx={{ height: 280 }}>
+            <Box sx={{ flexGrow: 1, minHeight: 280 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <LineChart data={workflowDynamics}>
                   <CartesianGrid strokeDasharray="3 3" stroke="#eee" />
@@ -67,12 +82,27 @@ export default function DashboardCharts({
       </Grid>
 
       <Grid size={{ xs: 12, md: 4 }}>
-        <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
-          <CardContent>
+        <Card
+          elevation={0}
+          sx={{
+            height: '100%',
+            border: '1px solid',
+            borderColor: 'divider',
+            display: 'flex',
+            flexDirection: 'column',
+          }}
+        >
+          <CardContent
+            sx={{
+              flexGrow: 1,
+              display: 'flex',
+              flexDirection: 'column',
+            }}
+          >
             <Typography variant="h6" gutterBottom>
               По статусам
             </Typography>
-            <Box sx={{ height: 280 }}>
+            <Box sx={{ flexGrow: 1, minHeight: 280 }}>
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie

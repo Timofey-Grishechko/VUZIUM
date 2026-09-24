@@ -20,7 +20,7 @@ export default function ReportHistory({ reports }: Props) {
   return (
     <Paper elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
       <TableContainer>
-        <Table>
+        <Table sx={{ minWidth: 500 }}>
           <TableHead>
             <TableRow>
               <TableCell>Дата</TableCell>

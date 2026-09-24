@@ -47,7 +47,7 @@ export default function UniversitiesTable({
   return (
     <Paper sx={{ width: '100%' }}>
       <TableContainer>
-        <Table>
+        <Table sx={{ minWidth: 600 }}>
           <TableHead>
             <TableRow>
               <TableCell>Название</TableCell>

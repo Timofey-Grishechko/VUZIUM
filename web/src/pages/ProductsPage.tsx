@@ -39,7 +39,7 @@ export default function ProductsPage() {
 
       <Paper>
         <TableContainer>
-          <Table>
+          <Table sx={{ minWidth: 700 }}>
             <TableHead>
               <TableRow>
                 <TableCell>Название</TableCell>

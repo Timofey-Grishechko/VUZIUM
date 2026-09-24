@@ -20,29 +20,52 @@ const cards = [
 
 export default function StatsCards(props: Props) {
   return (
-    <Grid container spacing={2}>
+    <Grid container spacing={2} sx={{ alignItems: 'stretch' }}>
       {cards.map((c) => {
         const Icon = c.icon
         const value = props[c.key]
         return (
           <Grid key={c.key} size={{ xs: 12, sm: 6, md: 3 }}>
-            <Card elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
-              <CardContent>
+            <Card
+              elevation={0}
+              sx={{
+                height: '100%',
+                border: '1px solid',
+                borderColor: 'divider',
+              }}
+            >
+              <CardContent sx={{ height: '100%' }}>
                 <Box
                   sx={{
                     display: 'flex',
                     justifyContent: 'space-between',
-                    alignItems: 'flex-start',
+                    alignItems: 'center',
+                    height: '100%',
+                    gap: 2,
                   }}
                 >
-                  <Box>
-                    <Typography variant="body2" color="text.secondary" gutterBottom>
+                  <Box sx={{ minWidth: 0, flexGrow: 1 }}>
+                    <Typography
+                      variant="body2"
+                      color="text.secondary"
+                      sx={{
+                        mb: 1,
+                        minHeight: 40,        // ← фиксируем высоту под 2 строки
+                        lineHeight: 1.3,
+                        display: 'flex',
+                        alignItems: 'center',
+                      }}
+                    >
                       {c.label}
                     </Typography>
-                    <Typography variant="h4" sx={{ fontWeight: 700 }}>
+                    <Typography
+                      variant="h4"
+                      sx={{ fontWeight: 700, lineHeight: 1 }}
+                    >
                       {value}
                     </Typography>
                   </Box>
+
                   <Box
                     sx={{
                       width: 44,
@@ -53,6 +76,7 @@ export default function StatsCards(props: Props) {
                       alignItems: 'center',
                       justifyContent: 'center',
                       color: c.color,
+                      flexShrink: 0,
                     }}
                   >
                     <Icon />

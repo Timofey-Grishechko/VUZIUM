@@ -43,7 +43,7 @@ export default function WorkflowsPage() {
           value={search}
           onChange={(e) => setSearch(e.target.value)}
           size="small"
-          sx={{ minWidth: 320 }}
+          sx={{ minWidth: { xs: '100%', sm: 320 } }}
           slotProps={{
             input: {
               startAdornment: (

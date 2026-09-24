@@ -17,7 +17,7 @@ export default function DirectionsPage() {
 
       <Paper>
         <TableContainer>
-          <Table>
+          <Table sx={{ minWidth: 400 }}>
             <TableHead>
               <TableRow>
                 <TableCell>Название</TableCell>

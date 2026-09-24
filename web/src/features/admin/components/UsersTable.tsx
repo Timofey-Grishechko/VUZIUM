@@ -49,7 +49,7 @@ export default function UsersTable({ users }: Props) {
   return (
     <Paper elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
       <TableContainer>
-        <Table>
+        <Table sx={{ minWidth: 700 }}>
           <TableHead>
             <TableRow>
               <TableCell>ФИО</TableCell>

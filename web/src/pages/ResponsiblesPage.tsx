@@ -61,7 +61,7 @@ export default function ResponsiblesPage() {
 
       <Paper>
         <TableContainer>
-          <Table>
+          <Table sx={{ minWidth: 600 }}>
             <TableHead>
               <TableRow>
                 <TableCell>ФИО</TableCell>

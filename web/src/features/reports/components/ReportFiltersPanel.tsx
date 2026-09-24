@@ -144,10 +144,14 @@ export default function ReportFiltersPanel({ onGenerate, loading }: Props) {
 
         <Divider sx={{ my: 3 }} />
 
-        <Stack direction="row" spacing={2} sx={{ alignItems: 'center' }}>
-          <TextField
-            select
-            label="Формат"
+        <Stack
+        direction={{ xs: 'column', sm: 'row' }}
+        spacing={2}
+        sx={{ alignItems: { xs: 'stretch', sm: 'center' } }}
+      >
+        <TextField
+          select
+          label="Формат"
             size="small"
             value={format}
             onChange={(e) => setFormat(e.target.value as ReportFormat)}

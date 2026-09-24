@@ -9,6 +9,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableContainer,
   TableHead,
   TableRow,
   TextField,
@@ -45,7 +46,6 @@ export default function ImportsPage() {
         return
       }
       setParsed(data)
-      // Автомаппинг по совпадению названий
       const autoMap: Record<string, string> = {}
       TARGET_FIELDS.forEach((f) => {
         const match = data.columns.find((c) =>
@@ -89,7 +89,7 @@ export default function ImportsPage() {
         <Paper
           elevation={0}
           sx={{
-            p: 6,
+            p: { xs: 3, md: 6 },
             border: '2px dashed',
             borderColor: 'divider',
             textAlign: 'center',
@@ -111,7 +111,12 @@ export default function ImportsPage() {
             onChange={handleFileChange}
           />
           <label htmlFor="xlsx-input">
-            <Button variant="contained" component="span" startIcon={<UploadFileIcon />} disabled={loading}>
+            <Button
+              variant="contained"
+              component="span"
+              startIcon={<UploadFileIcon />}
+              disabled={loading}
+            >
               {loading ? 'Загрузка…' : 'Выбрать файл'}
             </Button>
           </label>
@@ -125,8 +130,15 @@ export default function ImportsPage() {
 
       {parsed && !result && (
         <>
-          <Paper elevation={0} sx={{ p: 2, mb: 3, border: '1px solid', borderColor: 'divider' }}>
-            <Stack direction="row" spacing={2} sx={{ alignItems: 'center', justifyContent: 'space-between' }}>
+          <Paper
+            elevation={0}
+            sx={{ p: 2, mb: 3, border: '1px solid', borderColor: 'divider' }}
+          >
+            <Stack
+              direction={{ xs: 'column', sm: 'row' }}
+              spacing={2}
+              sx={{ alignItems: { xs: 'flex-start', sm: 'center' }, justifyContent: 'space-between' }}
+            >
               <Box>
                 <Typography variant="subtitle1">{parsed.filename}</Typography>
                 <Typography variant="caption" color="text.secondary">
@@ -153,74 +165,86 @@ export default function ImportsPage() {
           </Typography>
 
           <Paper elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
-            <Table>
-              <TableHead>
-                <TableRow>
-                  <TableCell>Поле системы</TableCell>
-                  <TableCell>Колонка в файле</TableCell>
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {TARGET_FIELDS.map((f) => (
-                  <TableRow key={f.key}>
-                    <TableCell>
-                      {f.label}
-                      {f.required && <Chip label="*" size="small" color="error" sx={{ ml: 1 }} />}
-                    </TableCell>
-                    <TableCell>
-                      <TextField
-                        select
-                        size="small"
-                        fullWidth
-                        value={mapping[f.key] ?? ''}
-                        onChange={(e) =>
-                          setMapping({ ...mapping, [f.key]: e.target.value })
-                        }
-                      >
-                        <MenuItem value="">— не использовать —</MenuItem>
-                        {parsed.columns.map((c) => (
-                          <MenuItem key={c} value={c}>
-                            {c}
-                          </MenuItem>
-                        ))}
-                      </TextField>
-                    </TableCell>
+            <TableContainer>
+              <Table sx={{ minWidth: 500 }}>
+                <TableHead>
+                  <TableRow>
+                    <TableCell>Поле системы</TableCell>
+                    <TableCell>Колонка в файле</TableCell>
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {TARGET_FIELDS.map((f) => (
+                    <TableRow key={f.key}>
+                      <TableCell>
+                        {f.label}
+                        {f.required && (
+                          <Chip label="*" size="small" color="error" sx={{ ml: 1 }} />
+                        )}
+                      </TableCell>
+                      <TableCell>
+                        <TextField
+                          select
+                          size="small"
+                          fullWidth
+                          value={mapping[f.key] ?? ''}
+                          onChange={(e) =>
+                            setMapping({ ...mapping, [f.key]: e.target.value })
+                          }
+                        >
+                          <MenuItem value="">— не использовать —</MenuItem>
+                          {parsed.columns.map((c) => (
+                            <MenuItem key={c} value={c}>
+                              {c}
+                            </MenuItem>
+                          ))}
+                        </TextField>
+                      </TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Paper>
 
           <Typography variant="h6" sx={{ mt: 4, mb: 2 }}>
             Предпросмотр ({Math.min(5, parsed.rows.length)} из {parsed.rows.length})
           </Typography>
-          <Paper elevation={0} sx={{ border: '1px solid', borderColor: 'divider', overflowX: 'auto' }}>
-            <Table size="small">
-              <TableHead>
-                <TableRow>
-                  {parsed.columns.map((c) => (
-                    <TableCell key={c}>{c}</TableCell>
-                  ))}
-                </TableRow>
-              </TableHead>
-              <TableBody>
-                {parsed.rows.slice(0, 5).map((row, i) => (
-                  <TableRow key={i}>
+          <Paper elevation={0} sx={{ border: '1px solid', borderColor: 'divider' }}>
+            <TableContainer>
+              <Table size="small" sx={{ minWidth: 600 }}>
+                <TableHead>
+                  <TableRow>
                     {parsed.columns.map((c) => (
-                      <TableCell key={c}>{String(row[c] ?? '')}</TableCell>
+                      <TableCell key={c}>{c}</TableCell>
                     ))}
                   </TableRow>
-                ))}
-              </TableBody>
-            </Table>
+                </TableHead>
+                <TableBody>
+                  {parsed.rows.slice(0, 5).map((row, i) => (
+                    <TableRow key={i}>
+                      {parsed.columns.map((c) => (
+                        <TableCell key={c}>{String(row[c] ?? '')}</TableCell>
+                      ))}
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+            </TableContainer>
           </Paper>
 
-          <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            sx={{ mt: 3 }}
+          >
             <Button
               variant="contained"
               onClick={handleImport}
               disabled={importing}
-              startIcon={importing ? <CircularProgress size={18} color="inherit" /> : undefined}
+              startIcon={
+                importing ? <CircularProgress size={18} color="inherit" /> : undefined
+              }
             >
               {importing ? 'Импортируем…' : 'Запустить импорт'}
             </Button>
@@ -232,27 +256,49 @@ export default function ImportsPage() {
       )}
 
       {result && (
-        <Paper elevation={0} sx={{ p: 3, border: '1px solid', borderColor: 'divider' }}>
+        <Paper
+          elevation={0}
+          sx={{ p: { xs: 2, md: 3 }, border: '1px solid', borderColor: 'divider' }}
+        >
           <Stack direction="row" spacing={2} sx={{ alignItems: 'center', mb: 2 }}>
             <CheckCircleIcon color="success" fontSize="large" />
             <Typography variant="h6">Импорт завершён</Typography>
           </Stack>
-          <Stack direction="row" spacing={3} sx={{ mb: 3 }}>
+
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={{ xs: 1, sm: 3 }}
+            sx={{ mb: 3 }}
+          >
             <Box>
-              <Typography variant="caption" color="text.secondary">Всего строк</Typography>
+              <Typography variant="caption" color="text.secondary">
+                Всего строк
+              </Typography>
               <Typography variant="h5">{result.total}</Typography>
             </Box>
             <Box>
-              <Typography variant="caption" color="text.secondary">Создано</Typography>
-              <Typography variant="h5" color="success.main">{result.created}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                Создано
+              </Typography>
+              <Typography variant="h5" color="success.main">
+                {result.created}
+              </Typography>
             </Box>
             <Box>
-              <Typography variant="caption" color="text.secondary">Обновлено</Typography>
-              <Typography variant="h5" color="primary.main">{result.updated}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                Обновлено
+              </Typography>
+              <Typography variant="h5" color="primary.main">
+                {result.updated}
+              </Typography>
             </Box>
             <Box>
-              <Typography variant="caption" color="text.secondary">С предупреждениями</Typography>
-              <Typography variant="h5" color="warning.main">{result.errors.length}</Typography>
+              <Typography variant="caption" color="text.secondary">
+                С предупреждениями
+              </Typography>
+              <Typography variant="h5" color="warning.main">
+                {result.errors.length}
+              </Typography>
             </Box>
           </Stack>
 
@@ -269,7 +315,11 @@ export default function ImportsPage() {
             </>
           )}
 
-          <Stack direction="row" spacing={2} sx={{ mt: 3 }}>
+          <Stack
+            direction={{ xs: 'column', sm: 'row' }}
+            spacing={2}
+            sx={{ mt: 3 }}
+          >
             <Button variant="contained" onClick={() => navigate('/universities')}>
               К каталогу вузов
             </Button>
