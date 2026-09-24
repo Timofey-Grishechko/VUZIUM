@@ -10,7 +10,6 @@ import {
   Switch,
   MenuItem,
   TextField,
-  Box,
 } from '@mui/material'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { adminApi } from '../../../api/admin'
@@ -18,18 +17,6 @@ import type { Role, User } from '../../../types/user'
 
 interface Props {
   users: User[]
-}
-
-const roleColors: Record<Role, 'default' | 'primary' | 'secondary'> = {
-  user: 'default',
-  manager: 'primary',
-  admin: 'secondary',
-}
-
-const roleLabels: Record<Role, string> = {
-  user: 'Пользователь',
-  manager: 'Руководитель',
-  admin: 'Администратор',
 }
 
 export default function UsersTable({ users }: Props) {
