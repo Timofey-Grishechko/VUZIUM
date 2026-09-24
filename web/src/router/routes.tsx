@@ -14,6 +14,7 @@ import WorkflowsPage from '../pages/WorkflowsPage'
 import WorkflowDetailPage from '../pages/WorkflowDetailPage'
 import ReportsPage from '../pages/ReportsPage'
 import HelpPage from '../pages/HelpPage'
+import ImportsPage from '../pages/ImportsPage'
 
 import { ProtectedRoute } from './guards'
 
@@ -38,6 +39,7 @@ export const routes: RouteObject[] = [
           { path: '/workflows/:id', element: <WorkflowDetailPage /> },
           { path: '/reports', element: <ReportsPage /> },
           { path: '/help', element: <HelpPage /> },
+          { path: '/imports', element: <ImportsPage /> },
         ],
       },
     ],
