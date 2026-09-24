@@ -1,10 +1,11 @@
 import { Navigate } from 'react-router-dom'
 import type { RouteObject } from 'react-router-dom'
 
-import AppLayout from '../components/layout/AppLayout.tsx'
-import DashboardPage from '../pages/DashboardPage.tsx'
-import LoginPage from '../pages/LoginPage.tsx'
-import NotFoundPage from '../pages/NotFoundPage.tsx'
+import AppLayout from '../components/layout/AppLayout'
+import DashboardPage from '../pages/DashboardPage'
+import LoginPage from '../pages/LoginPage'
+import NotFoundPage from '../pages/NotFoundPage'
+import UniversitiesPage from '../pages/UniversitiesPage'
 
 import { ProtectedRoute } from './guards'
 
@@ -20,6 +21,7 @@ export const routes: RouteObject[] = [
         element: <AppLayout />,
         children: [
           { path: '/', element: <DashboardPage /> },
+          { path: '/universities', element: <UniversitiesPage /> },
           // Пример с ограничением по роли:
           // {
           //   element: <RoleGuard roles={['admin']} />,
