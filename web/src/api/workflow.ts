@@ -1,7 +1,7 @@
 import type { StageExtended, StageKey, StageStatus, WorkflowExtended } from '../types/domain'
 import { STAGE_LABELS, STAGE_ORDER } from '../types/domain'
 
-// Генератор этапов для одного workflow
+// === Генератор 14 этапов для workflow ===
 function buildStages(workflowId: string, completedCount: number): StageExtended[] {
   return STAGE_ORDER.map((key, index): StageExtended => {
     let status: StageStatus = 'not_started'
@@ -20,6 +20,7 @@ function buildStages(workflowId: string, completedCount: number): StageExtended[
   })
 }
 
+// === Мок-данные workflow ===
 const MOCK_WORKFLOWS: WorkflowExtended[] = [
   {
     id: '1',
@@ -113,12 +114,30 @@ const MOCK_WORKFLOWS: WorkflowExtended[] = [
   },
 ]
 
+// === Вложения (моки) ===
+export interface Attachment {
+  id: string
+  stageId: string
+  filename: string
+  size: number
+  mime: string
+  uploadedAt: string
+  uploadedBy: string
+}
+
+const MOCK_ATTACHMENTS: Attachment[] = [
+  { id: 'a1', stageId: '1-0', filename: 'договор_МГУ.pdf', size: 245000, mime: 'application/pdf', uploadedAt: '2026-09-02', uploadedBy: 'Коля Тестов' },
+  { id: 'a2', stageId: '1-5', filename: 'лицензия_Яндекс.pdf', size: 128000, mime: 'application/pdf', uploadedAt: '2026-09-18', uploadedBy: 'Коля Тестов' },
+  { id: 'a3', stageId: '2-9', filename: 'учебный_план_СПбГУ.xlsx', size: 54300, mime: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', uploadedAt: '2026-09-21', uploadedBy: 'Коля Тестов' },
+]
+
 export interface WorkflowFilters {
   search?: string
   managerId?: string
   directionId?: string
 }
 
+// === ЕДИНСТВЕННЫЙ объект API ===
 export const workflowApi = {
   async getWorkflows(filters: WorkflowFilters = {}): Promise<WorkflowExtended[]> {
     await new Promise((r) => setTimeout(r, 250))
@@ -148,11 +167,29 @@ export const workflowApi = {
     comment?: string,
   ): Promise<void> {
     await new Promise((r) => setTimeout(r, 300))
-    // TODO: при подключении бэка — POST /workflows/{id}/stages/{stageId}/transition
     console.log('[mock] transition', { workflowId, stageId, toStatus, comment })
+  },
+
+  async getAttachments(stageId: string): Promise<Attachment[]> {
+    await new Promise((r) => setTimeout(r, 150))
+    return MOCK_ATTACHMENTS.filter((a) => a.stageId === stageId)
+  },
+
+  async uploadAttachment(stageId: string, file: File): Promise<Attachment> {
+    await new Promise((r) => setTimeout(r, 400))
+    const newAttachment: Attachment = {
+      id: `a-${Date.now()}`,
+      stageId,
+      filename: file.name,
+      size: file.size,
+      mime: file.type,
+      uploadedAt: new Date().toISOString().slice(0, 10),
+      uploadedBy: 'Текущий пользователь',
+    }
+    MOCK_ATTACHMENTS.push(newAttachment)
+    return newAttachment
   },
 }
 
-// Экспортируем для использования в канбане
 export { STAGE_ORDER, STAGE_LABELS }
 export type { StageKey, StageStatus }
