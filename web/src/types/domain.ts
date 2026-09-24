@@ -93,4 +93,74 @@ export interface Workflow {
   createdAt: string
   updatedAt: string
   stages: Stage[]
+  
+}
+
+// === Этапы workflow (14 шагов из ТЗ) ===
+export type StageKey =
+  | 'contacts'
+  | 'communication'
+  | 'meeting'
+  | 'documents_exchange'
+  | 'documents_correction'
+  | 'documents_signing'
+  | 'materials_transfer'
+  | 'product_implementation'
+  | 'teachers_training'
+  | 'program_update'
+  | 'classes'
+  | 'docs_actualization'
+  | 'teachers_upskilling'
+  | 'control'
+
+export const STAGE_LABELS: Record<StageKey, string> = {
+  contacts: 'Поиск контактов',
+  communication: 'Коммуникация с вузом',
+  meeting: 'Организация встречи',
+  documents_exchange: 'Обмен документами',
+  documents_correction: 'Корректировка документов',
+  documents_signing: 'Подписание документов',
+  materials_transfer: 'Передача материалов',
+  product_implementation: 'Внедрение продукта',
+  teachers_training: 'Обучение преподавателей',
+  program_update: 'Актуализация программы',
+  classes: 'Ведение занятий',
+  docs_actualization: 'Актуализация документации',
+  teachers_upskilling: 'Повышение квалификации',
+  control: 'Контроль исполнения',
+}
+
+export const STAGE_ORDER: StageKey[] = [
+  'contacts',
+  'communication',
+  'meeting',
+  'documents_exchange',
+  'documents_correction',
+  'documents_signing',
+  'materials_transfer',
+  'product_implementation',
+  'teachers_training',
+  'program_update',
+  'classes',
+  'docs_actualization',
+  'teachers_upskilling',
+  'control',
+]
+
+// Статус по этапу: не начат / в работе / завершён / просрочен
+export type StageStatus = 'not_started' | 'in_progress' | 'completed' | 'overdue'
+
+// Расширенный Stage с ключом этапа
+export interface StageExtended extends Stage {
+  key: StageKey
+  status: StageStatus
+}
+
+// Расширенный Workflow с массивом из 14 этапов
+export interface WorkflowExtended extends Omit<Workflow, 'stages'> {
+  universityName: string
+  directionName: string
+  productName: string
+  managerName: string
+  stages: StageExtended[]
 }
