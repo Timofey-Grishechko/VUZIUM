@@ -56,7 +56,11 @@ export default function WorkflowDetailPage() {
       <Typography variant="h4" gutterBottom>
         {workflow.universityName}
       </Typography>
-      <Stack direction="row" spacing={1} sx={{ mb: 3 }}>
+      <Stack
+        direction="row"
+        spacing={1}
+        sx={{ mb: 3, flexWrap: 'wrap', gap: 1 }}
+      >
         <Chip label={workflow.productName} color="primary" variant="outlined" />
         <Chip label={workflow.directionName} />
         <Chip label={`Менеджер: ${workflow.managerName}`} variant="outlined" />

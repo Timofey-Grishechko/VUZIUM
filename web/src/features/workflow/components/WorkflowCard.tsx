@@ -45,7 +45,16 @@ export default function WorkflowCard({ workflow, onClick }: Props) {
       <Typography variant="caption" color="text.secondary" sx={{ display: 'block' }}>
         {workflow.productName}
       </Typography>
-      <Box sx={{ mt: 1, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Box
+        sx={{
+          mt: 1,
+          display: 'flex',
+          justifyContent: 'space-between',
+          alignItems: 'center',
+          gap: 1,
+          flexWrap: 'wrap',
+        }}
+      >
         <Chip
           label={workflow.directionName}
           size="small"
